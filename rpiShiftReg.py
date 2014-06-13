@@ -4,10 +4,7 @@
 # Copyright (C) 2014 Kyle J. Kneitinger
 
 import RPi.GPIO as GPIO
-import random
 from time import sleep
-
-random.seed()
 
 # Rpi Pin Definitions
 CLOCK=11
@@ -38,14 +35,32 @@ def writeLatch():
     GPIO.output(LATCH, 1)
     GPIO.output(LATCH, 0)
 
+# Write a byte of length 8*CHAIN to the 595
+def writeByte(value):
+    global STORED
+    for i in range(8*CHAIN):
+        bit = (value << i) & (0x80 << 2*(CHAIN-1))
+        pushBit( bit )
+    writeLatch()
+    STORED=value
+
 # Make sure everything is hooked up
 def testFunc():
-    for i in range(256):
-        pushBit(random.getrandbits(1))
-        if (i+1)%(8*CHAIN) == 0:
-            writeLatch()
-            sleep(.125)
-
+    for i in range(256**CHAIN):
+        writeByte(i)
+        writeLatch()
+        sleep(.008)
+    for i in range((256**CHAIN)-1,0,-1):
+        writeByte(i)
+        writeLatch()
+        sleep(.008)
+    writeByte(0xFF**CHAIN)
+    sleep(.25)
+    writeByte(0x0F**CHAIN)
+    sleep(.25)
+    writeByte(0xF0**CHAIN)
+    sleep(2)
+    
 testFunc()
 GPIO.cleanup()
 exit
