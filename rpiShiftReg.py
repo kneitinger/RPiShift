@@ -44,8 +44,16 @@ def writeByte(value):
     writeLatch()
     STORED=value
 
+# High level write to a single pin
+def writePin(pin, value):
+    global STORED
+    oldVal = (STORED >> pin) & 0x01
+    if oldVal != value:
+        writeByte(STORED ^ (0x01 << pin) )
+
 # Make sure everything is hooked up
 def testFunc():
+    # Test bit pushing
     for i in range(256**CHAIN):
         writeByte(i)
         writeLatch()
@@ -54,13 +62,26 @@ def testFunc():
         writeByte(i)
         writeLatch()
         sleep(.008)
+
+    # Test individual pin writing
+    for i in range(4*CHAIN):
+        writePin(i,1)
+        sleep(.25)
+        writePin(i+4,1)
+        sleep(.25)
+        writePin(i,0)
+        sleep(.25)
+        writePin(i+4,0)
+        sleep(.25)
+
+    # Test byte writing
     writeByte(0xFF**CHAIN)
     sleep(.25)
     writeByte(0x0F**CHAIN)
     sleep(.25)
     writeByte(0xF0**CHAIN)
-    sleep(2)
-    
+    sleep(.25)
+
 testFunc()
 GPIO.cleanup()
 exit
