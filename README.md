@@ -5,11 +5,15 @@ A python module for interfacing a 595 shift register with the Raspberry Pi
 #Installation
 You can install RPiShift one of two ways:
 * Using **pip**:
-`pip install RPiShift`
-* Using setup.py and setuptools:
-`git clone git@github.com:kneitinger/RPiShift.git`
-`./setup.py install RPiShift'
+```sh
+$: pip install RPiShift
+```
 
+* Using setup.py and setuptools:
+```sh
+$: git clone git@github.com:kneitinger/RPiShift.git
+$: ./setup.py install RPiShift
+```
 #Usage
 
 ## Hardware
