@@ -11,11 +11,11 @@ Shiftr =RPiShift.Shiftr(15,11,13)
 def testFunc():
     # Test bit pushing
     for i in range(256**Shiftr.CHAIN):
-        Shiftr.writeByte(i)
+        Shiftr.pushBit(i)
         Shiftr.writeLatch()
         sleep(.008)
     for i in range((256**Shiftr.CHAIN)-1,0,-1):
-        Shiftr.writeByte(i)
+        Shiftr.pushBit(i)
         Shiftr.writeLatch()
         sleep(.008)
         
