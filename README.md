@@ -65,3 +65,16 @@ for i in range (8*shift.CHAIN):
     time.sleep(.125)
     shift.writePin(i,0)
 ```
+
+###Toggling a pin
+To toggle the state of a single pin, call the togglePin method with the desired
+pin to change
+```python
+# Turn on every other pin
+writeByte(0x55)
+# Toggle 0b01010101 to 0b10101010
+while True:
+    for i in range(8):
+    togglePin(i)
+    time.sleep(.125)
+```
