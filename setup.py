@@ -7,8 +7,7 @@ setup(
     version = "0.1",
     author = "Kyle J. Kneitinger",
     author_email = "kylejkneitinger@gmail.com",
-    description = ("A module for interfacing a 595 shift register with the
-        Raspberry Pi"),
+    description = ("A module for interfacing a 595 shift register with the Raspberry Pi"),
     license = "GPLv2",
     keywords = "raspberry pi 595 shift register electronics",
     url = "http://github.com/kneitinger/RPiShift",
