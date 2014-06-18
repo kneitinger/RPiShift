@@ -11,6 +11,7 @@ setup(
     license = "GPLv2",
     keywords = "raspberry pi 595 shift register electronics",
     url = "http://github.com/kneitinger/RPiShift",
+    packages=['RPiShift'],
     long_description = (""),
     classifiers = [
         "Development Status :: 3 - Alpha",
