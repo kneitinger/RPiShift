@@ -52,6 +52,10 @@ class Shiftr:
         if oldVal != value:
             self.writeByte(self.STORED ^ (0x01 << pin) )
 
+    # Toggle the state of a single pin
+    def togglePin(self, pin):
+        writeByte(self.STORED ^ (0x01 << pin))
+
     # Clean up pins
     def cleanup(self):
         GPIO.cleanup()
