@@ -2,6 +2,7 @@
 from time import sleep
 import RPiShift
 import RPi.GPIO as GPIO
+import random
 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(23, GPIO.IN)
@@ -33,6 +34,13 @@ def testFunc():
         for j in range(8):
             Shiftr.togglePin(j)
         sleep(.125)
+
+    # Manually toggle latch on each bit
+    random.seed()
+    for i in range(32):
+        Shiftr.pushBit(random.getrandbits(1))
+        sleep(.1)
+        Shiftr.writeLatch()
 
 testFunc()
 Shiftr.cleanup()
