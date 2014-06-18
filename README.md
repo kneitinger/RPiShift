@@ -6,13 +6,13 @@ A python module for interfacing a 595 shift register with the Raspberry Pi
 You can install RPiShift one of two ways:
 * Using **pip**:
 ```sh
-$: pip install RPiShift
+$ pip install RPiShift
 ```
 
 * Using setup.py and **setuptools**:
 ```sh
-$: git clone git@github.com:kneitinger/RPiShift.git
-$: ./setup.py install RPiShift
+$ git clone git@github.com:kneitinger/RPiShift.git
+$ ./setup.py install RPiShift
 ```
 #Usage
 
@@ -34,6 +34,9 @@ After that call the shiftr initialization function to configure the pins:
 # Args in [] are optional and default to 1 and GPIO.BOARD respectively
 shift = RPiShift.Shiftr(11,13,15)
 ```
+**NOTE:** When using the RPi.GPIO library with other buttons, motors, etc. at
+the same time as the RPiShift library, be sure to pass the board mode (GPIO.BCM
+or GPIO.BOARD) to ensure that there are not conflicting pin mappings.
 
 ###Writing bytes
 To write a byte to the shift register simply call the writeByte method with the
@@ -52,4 +55,13 @@ Currently there is no bounds checking, so be sure you're writing the correct
 amount of digits for the length of your chain: 2 hex digits or 8 binary
 digits per 595.
 
-###Toggling pins
+###Writing single pins
+To write a value to a single pin, call the writePin method with the desired pin
+(beginning at 0) and value (0 or 1):
+```python
+# Blink each pin in order
+for i in range (8*shift.CHAIN):
+    shift.writePin(i,1)
+    time.sleep(.125)
+    shift.writePin(i,0)
+```
