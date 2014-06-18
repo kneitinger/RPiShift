@@ -22,7 +22,7 @@ class Shiftr:
         GPIO.setup(self.DATA, GPIO.OUT)
         GPIO.setup(self.LATCH, GPIO.OUT, initial=GPIO.LOW)
         GPIO.setup(self.CLOCK, GPIO.OUT, initial=GPIO.LOW)
-    
+
     # Push a single bit into the registers
     # writeLatch must be called after 8*CHAIN pushes
     def pushBit(self,state):
@@ -31,7 +31,7 @@ class Shiftr:
         GPIO.output(self.DATA, state)
         GPIO.output(self.CLOCK, 1)
 
-    # Enable flow of data into storage register 
+    # Enable flow of data into storage register
     def holdLatch(self):
         GPIO.output(self.LATCH, 1)
 
@@ -63,7 +63,7 @@ class Shiftr:
 
     # Toggle the state of a single pin
     def togglePin(self, pin):
-        writeByte(self.STORED ^ (0x01 << pin))
+        self.writeByte(self.STORED ^ (0x01 << pin))
 
     # Clean up pins
     def cleanup(self):
