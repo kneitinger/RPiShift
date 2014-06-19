@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name = "RPiShift",
-    version = "0.1",
+    version = "0.1.2",
     author = "Kyle J. Kneitinger",
     author_email = "kylejkneitinger@gmail.com",
     description = ("A module for interfacing a 595 shift register with the Raspberry Pi"),
