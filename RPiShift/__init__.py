@@ -31,19 +31,10 @@ class Shiftr:
         GPIO.output(self.DATA, state)
         GPIO.output(self.CLOCK, 1)
 
-    # Enable flow of data into storage register
-    def holdLatch(self):
-        GPIO.output(self.LATCH, 1)
-
-    # Disable flow of data into storage register
-    def releaseLatch(self):
-        GPIO.output(self.LATCH, 0)
-
     # Transfer bits from shift register to storage register
     def writeLatch(self):
-        self.holdLatch()
-        self.releaseLatch()
-
+        GPIO.output(self.LATCH, 1)
+        GPIO.output(self.LATCH, 0)
 
     # Write a byte of length 8*CHAIN to the 595
     def writeByte(self,value):
