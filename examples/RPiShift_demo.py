@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 from time import sleep
 import RPiShift
-import random
 
 Shiftr = RPiShift.Shiftr(15,11,13)
 # Make sure everything is hooked up
 def testFunc():
+
     # Test byte writing by counting up and down in binary
     for i in range(256**Shiftr.CHAIN):
         Shiftr.writeByte(i)
@@ -34,11 +34,10 @@ def testFunc():
     # Clear the register
     Shiftr.writeByte(0x00)
     # Manually toggle latch on each bit to push data "into" the outputs
-    random.seed()
-    for i in range(64):
-        Shiftr.pushBit(random.getrandbits(1))
-        sleep(.1)
+    for i in range(16):
+        Shiftr.pushBit( ((i+1)%8)==1)
         Shiftr.writeLatch()
+        sleep(.1)
 
 # Catch ^C and cleanup pins before exiting
 try:
