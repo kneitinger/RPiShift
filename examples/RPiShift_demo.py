@@ -1,11 +1,7 @@
 #!/usr/bin/env python
 from time import sleep
 import RPiShift
-import RPi.GPIO as GPIO
 import random
-
-GPIO.setmode(GPIO.BOARD)
-GPIO.setup(23, GPIO.IN)
 
 Shiftr = RPiShift.Shiftr(15,11,13)
 # Make sure everything is hooked up
@@ -35,12 +31,19 @@ def testFunc():
             Shiftr.togglePin(j)
         sleep(.125)
 
-    # Manually toggle latch on each bit
+    # Clear the register
+    Shiftr.writeByte(0x00)
+    # Manually toggle latch on each bit to push data "into" the outputs
     random.seed()
-    for i in range(32):
+    for i in range(64):
         Shiftr.pushBit(random.getrandbits(1))
         sleep(.1)
         Shiftr.writeLatch()
 
-testFunc()
+# Catch ^C and cleanup pins before exiting
+try:
+    testFunc()
+except KeyboardInterrupt:
+    Shiftr.cleanup()
+    exit(1)
 Shiftr.cleanup()
