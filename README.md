@@ -71,10 +71,43 @@ To toggle the state of a single pin, call the togglePin method with the desired
 pin to change
 ```python
 # Turn on every other pin
-writeByte(0x55)
+shift.writeByte(0x55)
 # Toggle 0b01010101 to 0b10101010
 while True:
     for i in range(8):
-    togglePin(i)
-    time.sleep(.125)
+        shift.togglePin(i)
+        time.sleep(.125)
 ```
+
+###Pushing single bits ala FIFO queue
+With the pushBit and writeLatch functions, you can treat the 595(s) as a FIFO
+queue, pushing single bits into the register and triggering the update with
+writeLatch.
+For example, we can push a 1, write the latch, push a 0 seven times, and get a
+scrolling effect:
+```python
+for i in range(64):
+    shift.pushBit(((i+1)%8==0)
+    shift.writeLatch()
+    time.sleep(.1)
+```
+
+###Cleanup practices
+It is a good idea to call the cleanup function at the end of the program, but
+there are two special cases to watch for.
+* Keyboard Interrupts
+To ensure that keyboard interrupts are taken care of gracefully, put your main
+function in a `try:` block and cleanup the pins if the KeyboardInterrupt is
+raised:
+```python
+try:
+    mainFunc()
+except KeyboardInterrupt:
+    shift.cleanup()
+    exit(1)
+```
+* When used with RPi.GPIO or other output libraries
+If you are using another GPIO module such as RPi.GPIO, wiringpi, etc.; be
+mindful that calling cleanup may interact with the output of other modules.
+While this should not be an issue if called at the end of the program, care
+should be taken in regards to calling cleanup mid-program.
