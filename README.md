@@ -111,3 +111,8 @@ If you are using another GPIO module such as RPi.GPIO, wiringpi, etc.; be
 mindful that calling cleanup may interact with the output of other modules.
 While this should not be an issue if called at the end of the program, care
 should be taken in regards to calling cleanup mid-program.
+
+## Further info
+For more information, check out the example programs and the source code.
+If you have any questions, comments or feedback feel free to email me at
+[kylejkneitinger@gmail.com](kylejkneitinger@gmail.com).  Happy hacking!
