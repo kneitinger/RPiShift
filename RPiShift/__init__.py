@@ -1,7 +1,8 @@
 #! /usr/bin/env python
 # RpiShift
 # Using the 595 shift register with the Raspberry Pi
-# Copyright (C) 2014 Kyle J. Kneitinger
+# Copyright (c) 2014 Kyle J. Kneitinger
+# kylejkneitinger@gmail.com
 
 import RPi.GPIO as GPIO
 from time import sleep

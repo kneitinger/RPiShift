@@ -1,4 +1,9 @@
 #!/usr/bin/env python
+# RPiShift_demo.py - A script to demonstrate the functions of the RPiShift
+# module for 595 shift registers and the Raspberry Pi
+# Copyright (c) 2014 Kyle Kneitinger
+# kylejkneitinger@gmail.com
+
 from time import sleep
 import RPiShift
 
