@@ -6,7 +6,7 @@
 
 import RPi.GPIO as GPIO
 from time import sleep
-class Shiftr:
+class Shifter:
     def __init__(self, dataPin, clockPin, latchPin, chain = 1,
             boardMode = GPIO.BOARD):
         self.DATA = dataPin
@@ -15,7 +15,7 @@ class Shiftr:
         self.CHAIN = chain
         self.BOARDMODE = boardMode
 
-        # Value store in 595's storage register
+        # Value stored in 595's storage register
         self.STORED=0x00
 
         # Setup pins
@@ -28,7 +28,6 @@ class Shiftr:
     # writeLatch must be called after 8*CHAIN pushes
     def pushBit(self,state):
         GPIO.output(self.CLOCK, 0)
-        sleep(0)
         GPIO.output(self.DATA, state)
         GPIO.output(self.CLOCK, 1)
 
@@ -48,7 +47,6 @@ class Shiftr:
 
     # High level write to a single pin
     def writePin(self, pin, value):
-        self.STORED
         oldVal = (self.STORED >> pin) & 0x01
         if oldVal != value:
             self.writeByte(self.STORED ^ (0x01 << pin) )
@@ -60,4 +58,3 @@ class Shiftr:
     # Clean up pins
     def cleanup(self):
         GPIO.cleanup()
-
