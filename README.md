@@ -87,7 +87,7 @@ For example, we can push a 1, write the latch, push a 0 seven times, and get a
 scrolling effect:
 ```python
 for i in range(64):
-    shift.pushBit(((i+1)%8==0)
+    shift.pushBit(((i+1)%8)==0)
     shift.writeLatch()
     time.sleep(.1)
 ```
