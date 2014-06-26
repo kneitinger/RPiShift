@@ -38,7 +38,6 @@ class Shifter:
 
     # Write a byte of length 8*CHAIN to the 595
     def writeByte(self,value):
-        self.STORED
         for i in range(8*self.CHAIN):
             bit = (value << i) & (0x80 << 2*(self.CHAIN-1))
             self.pushBit( bit )
@@ -49,7 +48,7 @@ class Shifter:
     def writePin(self, pin, value):
         oldVal = (self.STORED >> pin) & 0x01
         if oldVal != value:
-            self.writeByte(self.STORED ^ (0x01 << pin) )
+            self.togglePin(pin)
 
     # Toggle the state of a single pin
     def togglePin(self, pin):
