@@ -30,9 +30,9 @@ import RPiShift
 After that call the shiftr initialization function to configure the pins:
 ```python
 # Argument list
-# Shiftr(dataPin, clockPin, latchPin, [chainLength], [boardMode])
+# Shifter(dataPin, clockPin, latchPin, [chainLength], [boardMode])
 # Args in [] are optional and default to 1 and GPIO.BOARD respectively
-shift = RPiShift.Shiftr(11,13,15)
+shift = RPiShift.Shifter(11,13,15)
 ```
 **NOTE:** When using the RPi.GPIO library with other buttons, motors, etc. at
 the same time as the RPiShift library, be sure to pass the board mode (GPIO.BCM
